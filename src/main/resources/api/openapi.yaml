@@ -20,6 +20,23 @@ servers:
         default: '8018'
 
 paths:
+  /balance/snapshot:
+    post:
+      tags:
+        - balance
+      summary: post a snapshot
+      operationId: saveBalanceSnapshot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BalanceSnapshotDTO'
+      responses:
+        '201':
+          description: success
+
+
   /hello:
     get:
       tags:
@@ -55,6 +72,17 @@ components:
             type: string
             description: Internal Server Error
   schemas:
+    BalanceSnapshotDTO:
+      type: object
+      required:
+        - balance
+      properties:
+        balance:
+          type: number
+          format: float
+          example: 123.45
+          description: The balance value with 2 decimal points.
+
     GreetingDTO:
       type: object
       required:
