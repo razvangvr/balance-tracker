@@ -2,29 +2,22 @@ openapi: 3.0.3
 
 info:
   version: 1.0.0
-  title: Loyalty Gateway API
-  description: "Loyalty API: +LoyaltyPoints Balance Retrieval, +Rewards Redemption, Customer redeem their rewards, +Available Challenges Retrieval"
+  title: Balance Tracker API
+  description: 'Balance Tracker API, -POST Balance Snapshot, -POST Balance WRITE Operation: Withdrawal, Deposit'
+
 
 tags:
-  - name: Loyalty Api
-    description: (internal)API for our own (Casino) FrontEnds/Clients
+  - name: greeting
+    description: Hello World
+  - name: balanceTracker
+    description: (internal)API for our own ProdSummary
 
 servers:
-  - url: https://{environment}.fanduel.com/api/loyalty
-    variables:
-      environment:
-        default: api    # Production server
-        enum:
-          - api         # Production server
-          - dev.api     # Development server
-          - test.api    # Test server
-  - url: 'http://localhost:{port}/api/loyalty'
+  - url: http://localhost:{port}/
+    description: local dev environment
     variables:
       port:
-        default: '8010'
-
-security:
-  - BearerAuth: [ ]
+        default: '8018'
 
 paths:
   /hello:
@@ -44,19 +37,12 @@ paths:
                   $ref: '#/components/schemas/GreetingDTO'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
+
         '500':
           $ref: '#/components/responses/InternalServerError'
 
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
   responses:
-    Unauthorized:
-      description: Unauthorized
     BadRequest:
       description: bad request
     InternalServerError:
@@ -69,7 +55,6 @@ components:
             type: string
             description: Internal Server Error
   schemas:
-
     GreetingDTO:
       type: object
       required:

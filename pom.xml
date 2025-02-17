@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<default.package.sample>raz.balance_tracker.api.generated</default.package.sample>
+		<openapi-generator-version>7.11.0</openapi-generator-version>
 	</properties>
 	<dependencies>
 
@@ -29,11 +31,18 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- OPEN API Generator -->
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.1</version>
+
+		</dependency>
 		<!-- OpenAPI Tools dependency -->
 		<dependency>
-			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-annotations</artifactId>
-			<version>2.1.10</version>
+			<groupId>org.openapitools</groupId>
+			<artifactId>openapi-generator</artifactId>
+			<version>${openapi-generator-version}</version>
 		</dependency>
 
 		<dependency>
@@ -60,7 +69,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>5.4.0</version>
+				<version>${openapi-generator-version}</version>
 				<executions>
 					<execution>
 						<id>balance-track-api</id>
@@ -74,16 +83,25 @@
 							<generateModelDocumentation>false</generateModelDocumentation>
 							<generateModelTests>false</generateModelTests>
 							<generateApiTests>false</generateApiTests>
-							<generateSupportingFiles>true</generateSupportingFiles>
+
+							<!--<generateSupportingFiles>true</generateSupportingFiles> -->
 							<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
 
+
+							<apiPackage>${default.package.sample}.controllers</apiPackage>
+							<modelPackage>${default.package.sample}.models</modelPackage>
+
+							<configHelp>false</configHelp>
 							<configOptions>
-								<dateLibrary>java8</dateLibrary>
+								<!--<dateLibrary>java8</dateLibrary>-->
 								<useTags>true</useTags>
+								<useSpringBoot3>true</useSpringBoot3>
+
 							</configOptions>
 
 							<inputSpec>${project.basedir}/src/main/resources/api/openapi.yaml</inputSpec>
-							<output>${project.build.directory}/generated-sources/openapi</output>
+
+							<!--<output>${project.build.directory}/generated-sources/openapi</output>-->
 						</configuration>
 					</execution>
 				</executions>
