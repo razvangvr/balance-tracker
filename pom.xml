@@ -29,6 +29,13 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- OpenAPI Tools dependency -->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>2.1.10</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -49,6 +56,39 @@
 
 	<build>
 		<plugins>
+			<!-- OpenAPI Generator Maven Plugin -->
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>5.4.0</version>
+				<executions>
+					<execution>
+						<id>balance-track-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generatorName>spring</generatorName>
+							<generateApis>true</generateApis>
+							<generateModels>true</generateModels>
+							<generateModelDocumentation>false</generateModelDocumentation>
+							<generateModelTests>false</generateModelTests>
+							<generateApiTests>false</generateApiTests>
+							<generateSupportingFiles>true</generateSupportingFiles>
+							<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+
+							<configOptions>
+								<dateLibrary>java8</dateLibrary>
+								<useTags>true</useTags>
+							</configOptions>
+
+							<inputSpec>${project.basedir}/src/main/resources/api/openapi.yaml</inputSpec>
+							<output>${project.build.directory}/generated-sources/openapi</output>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

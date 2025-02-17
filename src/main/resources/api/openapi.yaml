@@ -1,0 +1,87 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: Loyalty Gateway API
+  description: "Loyalty API: +LoyaltyPoints Balance Retrieval, +Rewards Redemption, Customer redeem their rewards, +Available Challenges Retrieval"
+
+tags:
+  - name: Loyalty Api
+    description: (internal)API for our own (Casino) FrontEnds/Clients
+
+servers:
+  - url: https://{environment}.fanduel.com/api/loyalty
+    variables:
+      environment:
+        default: api    # Production server
+        enum:
+          - api         # Production server
+          - dev.api     # Development server
+          - test.api    # Test server
+  - url: 'http://localhost:{port}/api/loyalty'
+    variables:
+      port:
+        default: '8010'
+
+security:
+  - BearerAuth: [ ]
+
+paths:
+  /hello:
+    get:
+      tags:
+        - greeting
+      summary: greeting List
+      operationId: getGreetings
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GreetingDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    BadRequest:
+      description: bad request
+    InternalServerError:
+      description: internal server error
+      content:
+        #        application/json: - asta o rezolvat
+        #        '*/*':
+        application/json:
+          schema:
+            type: string
+            description: Internal Server Error
+  schemas:
+
+    GreetingDTO:
+      type: object
+      required:
+        - id
+        - companyId
+      properties:
+        id:
+          type: string
+          format: uuid
+        companyId:
+          type: string
+        content:
+          type: string
+        autoProcure:
+          type: boolean
