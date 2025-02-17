@@ -96,7 +96,7 @@
 								<!--<dateLibrary>java8</dateLibrary>-->
 								<useTags>true</useTags>
 								<useSpringBoot3>true</useSpringBoot3>
-
+								<interfaceOnly>true</interfaceOnly>
 							</configOptions>
 
 							<inputSpec>${project.basedir}/src/main/resources/api/openapi.yaml</inputSpec>
