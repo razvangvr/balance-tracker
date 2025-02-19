@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BalanceSnapshotComp from "./BalanceSnapshotComp";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FetchDataComp = ()  => {
     console.log("FetchDataComp");

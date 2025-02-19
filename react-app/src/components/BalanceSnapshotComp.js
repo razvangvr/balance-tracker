@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BalanceSnapshotComp = ({ balance, onBalanceChange }) => {
 
@@ -11,7 +12,7 @@ const BalanceSnapshotComp = ({ balance, onBalanceChange }) => {
     };
 
     return (
-        <div>
+        <div className="mb-3">
             <label htmlFor="balance">Enter Balance:</label>
             <input
                 type="text"
@@ -19,6 +20,7 @@ const BalanceSnapshotComp = ({ balance, onBalanceChange }) => {
                 value={balance}
                 onChange={onChangeEvtHandler}
                 placeholder="Enter a float number"
+                className="form-control"
             />
         </div>
     );
