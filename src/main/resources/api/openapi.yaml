@@ -35,6 +35,10 @@ paths:
       responses:
         '201':
           description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceSnapshotDTO'
 
 
   /hello:
@@ -76,7 +80,13 @@ components:
       type: object
       required:
         - balance
+        - date
       properties:
+        date:
+          type: string
+          format: date-time
+          example: "2025-02-04T13:55:38+00:00"
+          description: The timestamp of the snapshot in ISO 8601 format.
         balance:
           type: number
           format: float

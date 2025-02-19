@@ -11,7 +11,7 @@ Apoi incep cu cel mai Simple Repository, Care are doar trei valori
 - Tn-1
 - Tn
 
-Si am un Serviciu Care Doar Citeste Valorile Relevante pentru Socoteala, din Repository
+Si am un Serviciu Care Doar Citeste Valorile Relevante pentru Socoteala, din Repository.
 Initial Lucreaza cu un simplu Inmemory/Mock repository
 Acesta ii da Serviciului De Calcul datele Corecte de care are nevoie, E.G. `Day's Close`, etc..
 
