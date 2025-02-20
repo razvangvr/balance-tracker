@@ -38,7 +38,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BalanceSnapshotDTO'
+                $ref: '#/components/schemas/BalanceDeltaDTO'
 
 
   /hello:
@@ -76,6 +76,20 @@ components:
             type: string
             description: Internal Server Error
   schemas:
+
+    BalanceDeltaDTO:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: float
+          example: 123.45
+        previous:
+          $ref: '#/components/schemas/BalanceSnapshotDTO'
+        current:
+          $ref: '#/components/schemas/BalanceSnapshotDTO'
+
+
     BalanceSnapshotDTO:
       type: object
       required:

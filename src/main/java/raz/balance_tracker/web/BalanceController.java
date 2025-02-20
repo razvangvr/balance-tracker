@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import raz.balance_tracker.api.generated.controllers.BalanceApi;
+import raz.balance_tracker.api.generated.models.BalanceDeltaDTO;
 import raz.balance_tracker.api.generated.models.BalanceSnapshotDTO;
 import raz.balance_tracker.model.BalanceSnapshot;
 import raz.balance_tracker.service.BalanceService;
@@ -26,16 +27,16 @@ public class BalanceController implements BalanceApi {
     private final BalanceService balanceService;
 
     @Override
-    public ResponseEntity<BalanceSnapshotDTO> saveBalanceSnapshot(BalanceSnapshotDTO balanceSnapshotDTO) {
+    public ResponseEntity<BalanceDeltaDTO> saveBalanceSnapshot(BalanceSnapshotDTO balanceSnapshotDTO) {
 
 
         log.info("Saving balance snapshot: {}", balanceSnapshotDTO);
-        System.out.println(balanceSnapshotDTO);
 
         var balanceSnapshot = fromDTO(balanceSnapshotDTO);
-        BalanceSnapshot delta = balanceService.saveSnapshot(balanceSnapshot);
 
-        return ResponseEntity.ok(toDTO(delta));
+        var delta = balanceService.saveSnapshot(balanceSnapshot);
+
+        return ResponseEntity.ok(delta);
     }
 
     BalanceSnapshot fromDTO(BalanceSnapshotDTO balanceSnapshotDTO){
@@ -43,7 +44,7 @@ public class BalanceController implements BalanceApi {
         return new BalanceSnapshot(balanceSnapshotDTO.getBalance(), now);
     }
 
-    BalanceSnapshotDTO toDTO(BalanceSnapshot balanceSnapshot){
+    public  static  BalanceSnapshotDTO toDTO(BalanceSnapshot balanceSnapshot){
         OffsetDateTime created = balanceSnapshot.createdDate().toOffsetDateTime();
 
         BalanceSnapshotDTO snapshotDTO = new BalanceSnapshotDTO()
