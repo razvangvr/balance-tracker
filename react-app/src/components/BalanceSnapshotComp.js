@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const BalanceSnapshotComp = ({ balance, onBalanceChange }) => {
+const BalanceSnapshotComp = ({ balance, onBalanceChange, onSave }) => {
 
 
     const onChangeEvtHandler = (event) => {
@@ -22,6 +22,9 @@ const BalanceSnapshotComp = ({ balance, onBalanceChange }) => {
                 placeholder="Enter a float number"
                 className="form-control"
             />
+            <button className="btn btn-primary mt-2"  onClick={onSave}>
+                Save Balance
+            </button>
         </div>
     );
 };

@@ -10,13 +10,18 @@ const FetchDataComp = ()  => {
 
     const [message, setMessage] = useState('');
 
-    const handleSnapshotUpdate = (newSnapshot) => {
-        console.log("New SnapshotUpdate:",newSnapshot);
-        postBalance(newSnapshot);
+    const handleSnapshotInputted = (newSnapshot) => {
+        console.log("New Snapshot Inputted:",newSnapshot);
+
         setBalanceSnapshot(newSnapshot);
     }
 
+    const handSnapshotSaved = async () => {
+        await postBalance(balanceSnapshot);
+    }
+
     const postBalance = async (newBalance) => {
+        console.log("POST newBalanceSnapShot")
         try {
             const response = await axios.post('http://localhost:8002/balance/snapshot', {
                 balance: parseFloat(newBalance),
@@ -34,7 +39,10 @@ const FetchDataComp = ()  => {
     return(
         <div className="container">
             <h1>FetchDataComp</h1>
-            <BalanceSnapshotComp balance={balanceSnapshot}  onBalanceChange={handleSnapshotUpdate} />
+            <BalanceSnapshotComp balance={balanceSnapshot}
+                                 onBalanceChange={handleSnapshotInputted}
+                                 onSave={handSnapshotSaved}
+            />
             {message && <div className="alert alert-info">{message}</div>}
         </div>
     );
