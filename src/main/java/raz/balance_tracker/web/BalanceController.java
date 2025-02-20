@@ -3,6 +3,7 @@ package raz.balance_tracker.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import raz.balance_tracker.api.generated.controllers.BalanceApi;
 import raz.balance_tracker.api.generated.models.BalanceSnapshotDTO;
@@ -15,6 +16,11 @@ import java.time.ZonedDateTime;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
+/**
+ * Access to XMLHttpRequest at 'http://localhost:8002/balance/snapshot' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+ * */
+
 public class BalanceController implements BalanceApi {
 
     private final BalanceService balanceService;
