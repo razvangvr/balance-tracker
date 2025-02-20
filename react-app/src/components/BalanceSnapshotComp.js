@@ -11,6 +11,12 @@ const BalanceSnapshotComp = ({ balance, onBalanceChange, onSave }) => {
         }
     };
 
+    const onKeyDownHandler = (event) => {
+        if (event.key === 'Enter') {
+            onSave();
+        }
+    };
+
     return (
         <div className="mb-3">
             <label htmlFor="balance">Enter Balance:</label>
@@ -19,6 +25,7 @@ const BalanceSnapshotComp = ({ balance, onBalanceChange, onSave }) => {
                 id="balance"
                 value={balance}
                 onChange={onChangeEvtHandler}
+                onKeyDown={onKeyDownHandler}
                 placeholder="Enter a float number"
                 className="form-control"
             />

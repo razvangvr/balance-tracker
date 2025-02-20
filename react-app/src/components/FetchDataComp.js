@@ -28,7 +28,7 @@ const FetchDataComp = ()  => {
                 date: new Date().toISOString()
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 setMessage('Balance snapshot saved successfully');
             }
         } catch (error) {
