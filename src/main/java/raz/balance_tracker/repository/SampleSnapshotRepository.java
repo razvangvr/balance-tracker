@@ -6,6 +6,8 @@ import raz.balance_tracker.model.BalanceSnapshot;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Component
 @Slf4j
@@ -13,16 +15,17 @@ public class SampleSnapshotRepository implements ISnapshotRepository {
 
 
     public static final int BALANCE_T0 = 1000;//Initial Balance, Origin Balance
-    private final BalanceSnapshot t0;
 
     private BalanceSnapshot previous;//tn_1
 
     private BalanceSnapshot latestSnapshot;
 
+    //Le tin Sortate dupa Created Date, a.i Cel mai recent introdus sa fie Ultimul
+    private Set<BalanceSnapshot> savedSnapshots = new TreeSet<>();
+
 
     public SampleSnapshotRepository() {
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(2025, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault());
-        t0 = new BalanceSnapshot(BALANCE_T0, zonedDateTime);
+
 
         //For simplicity il initializez si pe  Tn-1 tot cu T0, adica cu Origin
         /**
@@ -42,10 +45,7 @@ public class SampleSnapshotRepository implements ISnapshotRepository {
 
         latestSnapshot = balanceSnapshot;
 
-        if (previous == null) {
-            previous = balanceSnapshot;
-            log.info("Initializing Tn-1 with:{}", balanceSnapshot.balance());
-        }
+        savedSnapshots.add(latestSnapshot);
 
 
         return latestSnapshot;
@@ -53,6 +53,14 @@ public class SampleSnapshotRepository implements ISnapshotRepository {
 
     @Override
     public BalanceSnapshot getPrevious() {
-        return previous;
+        if ( savedSnapshots.isEmpty()) {
+            ZonedDateTime zonedDateTime = ZonedDateTime.of(1970, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault());
+
+            var balanceSnapshot =  new BalanceSnapshot(BALANCE_T0, zonedDateTime);
+
+            savedSnapshots.add(balanceSnapshot);
+            log.info("Initializing Tn-1 with:{}", balanceSnapshot.balance());
+        }
+        return ((TreeSet<BalanceSnapshot>) savedSnapshots).last();
     }
 }

@@ -13,9 +13,9 @@ public class BalanceService {
 
     public BalanceSnapshot saveSnapshot(BalanceSnapshot balanceSnapshot) {
 
-        BalanceSnapshot currentSaved = snapshotRepository.save(balanceSnapshot);
-
         BalanceSnapshot prev = snapshotRepository.getPrevious();
+
+        BalanceSnapshot currentSaved = snapshotRepository.save(balanceSnapshot);
 
         BalanceSnapshot balanceDelta = delta(prev, currentSaved);
 
